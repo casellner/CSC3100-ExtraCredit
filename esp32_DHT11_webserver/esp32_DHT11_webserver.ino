@@ -6,7 +6,7 @@
 #define DHTTYPE DHT11   // DHT 11 
 
 const char* ssid = "EagleNet";  
-const char* password = "Type your password key here";  
+const char* password = "VAA39x4H";  
 
 WebServer server(80);
 
