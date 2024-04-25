@@ -1,1 +1,3 @@
-See our api docs https://node-serialport.github.io/node-serialport/CCTalkParser.html
+# @serialport/parser-cctalk
+
+See our api docs https://serialport.io/docs/api-parser-cctalk
