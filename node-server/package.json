@@ -1,0 +1,8 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "dependencies": {
+        "serialport": "^9.0.1"
+    }
+}
