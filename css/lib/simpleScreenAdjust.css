@@ -1,0 +1,55 @@
+/* Ensure elements are not too wide on larger screens */
+#divMain {
+    max-width: 1140px; 
+    margin: auto;
+}
+
+/* Adjust spacing and layout for smaller screens */
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+
+    .card {
+        margin: 20px 0; 
+    }
+}
+
+.form-label {
+    margin: 5px; /* Adjust the spacing around labels */
+    display: block; /* Make labels block elements for consistent spacing */
+}
+
+@media (min-width: 768px) {
+    #navbarNavDropdown {
+        justify-content: flex-start; /* Navbar items aligned to start on larger screens */
+    }
+}
+
+.card-body img {
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    object-fit: contain;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#divMain {
+    flex: 1 0 auto; /* This will push the footer to the bottom */
+}
+
+footer { /* Use the class name you added to your footer */
+    flex-shrink: 0; /* This will prevent the footer from shrinking */
+}
