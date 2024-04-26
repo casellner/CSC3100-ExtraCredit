@@ -369,6 +369,20 @@ DISPLAY HANDLING
                 })
             } 
         })
+
+        $(document).ready(function(){
+            let sessionID = "LZUOG3GP";
+            $('.feature-toggle').on('change', function() {
+                var settingName = $(this).closest('li').text().trim(); // Get the name/text of the closest list item
+                var value = $(this).is(':checked') ? 1 : 0; // Determine if the checkbox is checked
+                
+                console.log('SessionID:', sessionID);
+                console.log('Setting Name:', settingName);
+                console.log('Setting Value:', value);
+
+                updateSetting(sessionID, settingName, value);
+            })
+        })
     </script>
 </html>
 
