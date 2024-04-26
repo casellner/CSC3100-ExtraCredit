@@ -12,10 +12,8 @@ const port = new SerialPort({ path: 'COM5', baudRate: 9600 })
 const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
 
 var app = http.createServer(function(req, res) {
-    if (req.url.startsWith('/node_modules/bootstrap/dist/css/bootstrap.min.css')) {
-        res.writeHead(200, {'Content-Type':'text/html'});
-        res.end(index);
-    }
+    res.writeHead(200, {'Content-Type':'text/html'});
+    res.end(index);
 })
 
 //var io = require('socket.io');
