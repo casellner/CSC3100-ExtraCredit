@@ -1,0 +1,35 @@
+
+body {
+    background-image: url('https://cdn.dribbble.com/userupload/2669101/file/original-488e947d41733d9cf8704f3ce9c38277.gif');
+    /* background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%; */
+    background-color: #e0e0e0;
+    color: #2e8b57; 
+}
+
+.card {
+    background-color: #e8e7e4; 
+    border-color: #168E62; 
+}
+
+.card-header{
+    background-color: #2e8b57; 
+    border-color: #2e8b57; 
+    color: white;
+}
+
+.btn-success {
+    background-color: #000000; 
+    border-color: #667d5c; 
+    color: #ffffff;
+}
+
+a {
+    color: #5a7451; 
+}
+
+.form-control {
+    background-color: #ffffff; 
+    border-color: #2e8b57; 
+}
