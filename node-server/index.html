@@ -3,25 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCoop</title>
-    <script src="'https://cdnjs.cloudfare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <title>Smart-Coop</title>
+    <link href="css/favicons/egg_favicon.png" rel="icon" type="image/x-icon"> <!--favicon for tab-->
+    <link href="css/lib/bootstrap.min (minty).css" rel="stylesheet"> <!--Grid layout & general theme-->
+    <link href="css/lib/simpleScreenAdjust.css" rel="stylesheet"> <!--Screen Responsiveness-->
+    <link href="css/lib/simpleColors.css" rel="stylesheet"> <!--Simplified CSS Color Pallette-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"> <!--icons for buttons-->
 </head>
 <body>
-    <h1>Test</h1>
+    
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <div class="navbar-brand fw-bold" ><img src="css/favicons/egg_favicon.png" alt="chicken nest with one egg"><span class="fw-bold">  Smart </span><span class="fw-light">Coop</span></div>
+        </div>
+    </nav>    
+    <!--MAIN div-->
+    <div id="divMain" class="col-10 offset-1 card-body mt-5 d-flex justify-content-center align-items-center text-black">
+        <!--DASHBOARD div-->
+        <div id="divDashboard" class="card col-12 mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 id="coopHeader">Chicken Coop Live Stream:</h3>
 
-    <div id="sample"></div>
+                <div>
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Coop Settings
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href='#' class="dropdown-item btnToggle" data-card="Settings">Customize Coop</a></li>
+                            <!--<li><hr class="dropdown-divider"></li>-->
+                            <!--<li><a class="dropdown-item" href="#">Active Monitors</a></li>
+                            <li><a class="dropdown-item" href="#">Configure Coop Simulator</a></li>-->
+                        </ul>
+                    </div>
+                </div>
 
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+            </div>
+            <div class="card-body">
+                <div>
+                    <p>Humidity: </p>
+                    <p id="divHumidity"></p>
+                </div>
+                <div class="row g-3">
+                    <!--LiveStream of Chickens-->
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="card h-100">
+                      
+                            <style>
+                                .video-wrapper {
+                                    position: relative;
+                                    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+                                    background-color: #333; /* Optional */
+                                    width: 100%;
+                                    max-width: 900px;
+                                    margin: auto;
+                                }
+                            
+                                .video-wrapper iframe {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            </style>
+                            <div class="card-body d-flex justify-content-center">
+                                <div class="video-wrapper">
+                                    <iframe 
+                                        width="560" 
+                                        height="315" 
+                                        src="https://www.youtube.com/embed/c2SXDkaNOU4?autoplay=1&mute=1" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        referrerpolicy="strict-origin-when-cross-origin" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--SETTINGS DASHBOARD div-->
+        <div id="divSettings" class="card col-12" style="display:none">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3>Chicken Coop Configuration</h3> 
+                <div>
+                    <button id="btnback" class="btn btn-danger btn-sm btnToggle" data-card="Dashboard">back</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <h5>Coop Features:</h5>
+                        <ul id="featuresList" class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Ventialtion System
+                                <input type="checkbox" class="feature-toggle" unchecked>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Motion Activated Door
+                                <input type="checkbox" class="feature-toggle" unchecked>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Heating System
+                                <input type="checkbox" class="feature-toggle" unchecked>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Coop Alarm
+                                <input type="checkbox" class="feature-toggle" unchecked>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+          © 2024 SmartCoop
+        </div>
+    </footer>
+</body>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
 
+/*       
+=====================================================================================================================
+USERADDRESS
+=====================================================================================================================
+*/
+    //Posts Address data when a user successfully registers
+    function postAddress(email, street1, street2, city, state, zip) {
+        $.ajax ({
+            url: 'https://simplecoop.swollenhippo.com/useraddress.php',
+            type: 'POST',
+            data: {
+                Email: email,
+                Street1: street1,
+                Street2: street2,
+                City: city,
+                State: state,
+                ZIP: zip
+            },
+            succcess: function(result) {
+                console.log("User Address added: ", result);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error adding user address: ", status, error);
+            }
+        })
+    }
+
+    //Retrieves Address data when an existing user logs in
+    function getAddress(email) {
+        $.ajax({
+            url: 'https://simplecoop.swollenhippo.com/useraddress.php',
+            type: 'GET',
+            data: {
+                Email: email,
+            },
+            success: function(result){
+                result = JSON.parse(result) //returns array
+                console.log("Current user address records: ", result)
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching user address records:', status, error)
+            }
+        })
+    }
+    
+    //tied with the Delete Account button
+    function deleteAddress(email) {
+        $.ajax({
+            url: 'https://simplecoop.swollenhippo.com/useraddress.php/',
+            type: 'DELETE',
+            data: {
+                Email: email,
+            },
+            success: function(result) {
+                console.log('Address record deleted successfully', result)
+                getAddress(email)
+            },
+            error: function(xhr, status, error) {
+                console.error('Error deleting address record:', status, error)
+            }
+        })
+    }
+
+/*
+=====================================================================================================================
+SETTINGS HANDLING - USERS CAN MANAGE COOP FEATURES LIKE AIR CONDITIONING
+=====================================================================================================================
+*/
+
+function createSetting(strSetting, strValue) {
+    $.post('https://simplecoop.swollenhippo.com/settings.php', {
+        SessionID: sessionStorage.getItem('SessionID'),
+        setting: strSetting,
+        value: strValue
+    }, function(result) {
+        result = JSON.parse(result);
+        console.log(result);
+        if (result.Outcome) {
+            console.log('Setting created successfully.');
+            Swal.fire({
+                title: "Feature Added!",
+                html: '<p>' + strValue + ' ' + strSetting + ' added to your chicken coop!</p>',
+                icon: "success"
+            });
+
+        } else {
+            console.error('Failed to create setting:', result.Message);
+            Swal.fire({
+                title: "Oops",
+                html: '<p>' + result.Message + '</p>',
+                icon: "error"
+            });
+        }
+    }).fail(function(xhr, status, error) {
+        console.error('Error creating setting:', error);
+        console.error('status:', status);
+        Swal.fire({
+            title: "Error",
+            html: '<p>' + error.Message + '</p>',
+            icon: "error"
+        })
+    })
+}
+
+
+function updateSetting(strSessionID, strSettingName, strValue) {
+    $.ajax({
+        url: 'https://simplecoop.swollenhippo.com/settings.php',
+        type: 'PUT',
+        data: {
+            SessionID: strSessionID,
+            setting: strSettingName,
+            value: strValue
+        },
+        success: function(data) {
+            data = JSON.parse(data);
+            console.log(data);
+            if (data) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'The ' + strSettingName + ' has been ' + (strValue === 1 ? 'turned on' : 'turned off'),
+                    icon: 'success'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Failed',
+                    text: 'There was an issue updating the ' + strSettingName,
+                    icon: 'error'
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'An error occurred while sending the request.',
+                icon: 'error'
+            });
+        }
+    });
+}
+
+function deleteSetting(setting) {
+    $.ajax({
+        url: 'https://simplecoop.swollenhippo.com/settings.php',
+        type: 'DELETE',
+        data: {
+            SessionID: sessionStorage.getItem('SessionID'),
+            setting: setting
+        },
+        success: function(result) {
+            var data = JSON.parse(result);
+            if (data.Outcome === 'Success') {
+                console.log('Setting deleted successfully.');
+            } else {
+                console.error('Failed to delete setting.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error deleting setting:', error);
+        }
+    })
+}
+
+// Function to retrieve a setting
+function getSetting(setting) {
+    $.ajax({
+        url: 'https://simplecoop.swollenhippo.com/settings.php',
+        type: 'GET',
+        data: {
+            SessionID: sessionStorage.getItem('SessionID'),
+            setting: setting
+        },
+        success: function(result) {
+            var data = JSON.parse(result);
+            console.log('Setting retrieved:', data);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error retrieving setting:', error);
+        }
+    })
+}
+/*
+=====================================================================================================================
+DISPLAY HANDLING
+=====================================================================================================================
+*/
+
+        //function for clicking register, settings and login buttons
+        $('.btnToggle').on('click',function(){
+            let strCard = $(this).attr('data-card')
+            if(strCard == 'Login'){
+                $('#divLogin').slideToggle(function(){
+                  $('#divRegistration').slideToggle()
+                })
+            }
+            else if(strCard == 'Settings'){
+                $('#divDashboard').slideToggle(function(){
+                  $('#divSettings').slideToggle()
+                })
+            }
+            else if(strCard == 'Dashboard'){
+                $('#divSettings').slideToggle(function(){
+                  $('#divDashboard').slideToggle()
+                })
+            }
+            else{
+                $('#divRegistration').slideToggle(function(){
+                  $('#divLogin').slideToggle()
+                }) 
+            }
+        })
+
+        //Return to Login Page
+        $('#btnReturnLogin').on('click',function(){
+            $('divRegistration').slideToggle(function(){
+                $('#divDashboard').slideToggle();
+            })
+        })
+
+        // Function for logging out of the session from the dashboard. **
+        $('#btnLogout').on('click', function() {
+            let sessionID = sessionStorage.getItem('SessionID');
+            if (sessionID) {
+                $.ajax({
+                    url: 'https://simplecoop.swollenhippo.com/sessions.php',
+                    type: 'DELETE',
+                    data: {SessionID: sessionID},
+                    success: function(result) {
+                        console.log(result);
+                        sessionStorage.removeItem('SessionID');
+                        $('#divDashboard').slideToggle(function() {
+                            $('#divLogin').slideToggle();
+                        })
+                    }
+                })
+            } 
+        })
+
+        $(document).ready(function(){
+            let sessionID = "LZUOG3GP";
+            $('.feature-toggle').on('change', function() {
+                var settingName = $(this).closest('li').text().trim(); // Get the name/text of the closest list item
+                var value = $(this).is(':checked') ? 1 : 0; // Determine if the checkbox is checked
+                
+                console.log('SessionID:', sessionID);
+                console.log('Setting Name:', settingName);
+                console.log('Setting Value:', value);
+
+                updateSetting(sessionID, settingName, value);
+            })
+        })
+    </script>
     <script>
         const socket = io();
         socket.on('data', function(data){
             //console.log(data);
-            //document.getElementById('#sample').html(data);
-            $("#sample").empty()
-            $("#sample").append(data)
+            $("#divHumidity").empty()
+            $("#divHumidity").append(data)
         })
     </script>
-</body>
 </html>
+
