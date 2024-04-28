@@ -42,8 +42,8 @@
             </div>
             <div class="card-body">
                 <div>
-                    <p>Humidity: </p>
                     <p id="divHumidity"></p>
+                    <button id="btnSwitch" class="btn btn-secondary" type="button">Switch</button>
                 </div>
                 <div class="row g-3">
                     <!--LiveStream of Chickens-->
@@ -106,7 +106,7 @@
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Motion Activated Door
-                                <input type="checkbox" class="feature-toggle" unchecked>
+                                <input id="checkDoor" type="checkbox" class="feature-toggle" unchecked>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Heating System
@@ -397,6 +397,19 @@ DISPLAY HANDLING
             $("#divHumidity").empty()
             $("#divHumidity").append(data)
         })
+
+        $("#btnSwitch").on('click',function(){
+            socket.emit('mode', {status:"0"});
+        })
+
+        $('#checkDoor').click(function() {
+            if($(this).prop("checked") == true) {
+                socket.emit('mode', {status:"1"});
+            }
+            else if($(this).prop("checked") == false) {
+                socket.emit('mode', {status:"0"});
+            }
+        });
     </script>
 </html>
 

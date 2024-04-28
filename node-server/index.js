@@ -16,11 +16,17 @@ var app = http.createServer(function(req, res) {
     res.end(index);
 })
 
-//var io = require('socket.io');
 const io = new Server(app)
 
-io.httpServer.on('connection', function(data){
+io.httpServer.on('connection', function(socket){
     console.log('Node.js is listening!')
+})
+
+io.on('connection', function(socket){
+    socket.on('mode', function(data){
+        port.write(data.status);
+        console.log(data);
+    })
 })
 
 parser.on('data', function(data){
