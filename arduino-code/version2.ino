@@ -39,7 +39,7 @@ void loop() {
   Serial.print(temp_f);
   Serial.print("   Humidity: ");
   Serial.println(humidity);
-  Serial.print("   Montion Detected: ");
+  Serial.print("   Motion Detected: ");
   Serial.println(motion);
     
   delay(100);
