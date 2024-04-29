@@ -1,26 +1,25 @@
-var http = require('http');
-var fs = require('fs');
+const express = require('express');
+const http = require('http');
+const fs = require('fs');
 const { Server } = require("socket.io")
 
-var index = fs.readFileSync('index.html');
-
 const { SerialPort } = require('serialport')
-
 const { ReadlineParser } = require('@serialport/parser-readline')
-const port = new SerialPort({ path: 'COM5', baudRate: 9600 })
 
+const port = new SerialPort({ path: 'COM5', baudRate: 9600 })
 const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
 
-var app = http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type':'text/html'});
-    res.end(index);
-})
+const app = express();
+const server = http.createServer(app);
 
-const io = new Server(app)
+const io = new Server(server)
 
-io.httpServer.on('connection', function(socket){
-    console.log('Node.js is listening!')
-})
+app.use(express.static('css'));
+
+app.get('/', (req, res) => {
+    const index = fs.readFileSync('index.html', 'utf8');
+    res.send(index);
+});
 
 io.on('connection', function(socket){
     socket.on('mode', function(data){
@@ -34,4 +33,6 @@ parser.on('data', function(data){
     io.emit('data', data);
 });
 
-app.listen(3000);
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+});
