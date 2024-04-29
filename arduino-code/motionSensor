@@ -1,0 +1,21 @@
+// Define the pin connected to the motion sensor
+int motionSensorPin = 2; // Pin number
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication at 9600 baud rate
+  pinMode(motionSensorPin, INPUT); // Set motion sensor pin as input
+}
+
+void loop() {
+  int motionState = digitalRead(motionSensorPin); // Read the state of motion sensor pin
+
+  if (motionState == HIGH) {
+    Serial.println("Motion Detected");
+      //sendToDashboard("Motion Detected") //sending message to dashboard
+  } else {
+    Serial.println("Motion Stopped");
+      //sendToDashboard("Motion Detected") //sending message to dashboard
+  }
+
+  delay(1000); // Delay for stability
+}
