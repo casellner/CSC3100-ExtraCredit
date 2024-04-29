@@ -1,21 +1,24 @@
-// Define the pin connected to the motion sensor
-int motionSensorPin = 2; // Pin number
+const int PIN_TO_SENSOR = 19; // GPIO19 pin connected to OUTPUT pin of sensor
+int pinStateCurrent   = LOW;  // current state of pin
+int pinStatePrevious  = LOW;  // previous state of pin
 
 void setup() {
-  Serial.begin(9600); // Initialize serial communication at 9600 baud rate
-  pinMode(motionSensorPin, INPUT); // Set motion sensor pin as input
+  Serial.begin(9600);            // initialize serial
+  pinMode(PIN_TO_SENSOR, INPUT); // set ESP32 pin to input mode to read value from OUTPUT pin of sensor
 }
 
 void loop() {
-  int motionState = digitalRead(motionSensorPin); // Read the state of motion sensor pin
+  pinStatePrevious = pinStateCurrent; // store old state
+  pinStateCurrent = digitalRead(PIN_TO_SENSOR);   // read new state
 
-  if (motionState == HIGH) {
-    Serial.println("Motion Detected");
-      //sendToDashboard("Motion Detected") //sending message to dashboard
-  } else {
-    Serial.println("Motion Stopped");
-      //sendToDashboard("Motion Detected") //sending message to dashboard
+  if (pinStatePrevious == LOW && pinStateCurrent == HIGH) {   // pin state change: LOW -> HIGH
+    Serial.println("Motion detected!");
+    // TODO: turn on alarm, light or activate a device ... here
   }
-
-  delay(1000); // Delay for stability
+  else
+  if (pinStatePrevious == HIGH && pinStateCurrent == LOW) {   // pin state change: HIGH -> LOW
+    Serial.println("Motion stopped!");
+    // TODO: turn off alarm, light or deactivate a device ... here
+  }
 }
+
