@@ -1,0 +1,21 @@
+errors
+
+Sketch uses 749177 bytes (57%) of program storage space. Maximum is 1310720 bytes.
+Global variables use 43968 bytes (13%) of dynamic memory, leaving 283712 bytes for local variables. Maximum is 327680 bytes.
+esptool.py v4.5.1
+Serial port /dev/cu.SLAB_USBtoUART
+Connecting......................................
+
+A fatal error occurred: Failed to connect to ESP32: No serial data received.
+For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html
+Failed uploading: uploading error: exit status 2
+
+
+
+/Users/fryball/CSC3100-ExtraCredit/esp32_DHT11_webserver/esp32_DHT11_webserver.ino:1:10: fatal error: ESPServo.h: No such file or directory
+ #include <ESPServo.h>
+          ^~~~~~~~~~~~
+compilation terminated.
+exit status 1
+
+Compilation error: ESPServo.h: No such file or directory

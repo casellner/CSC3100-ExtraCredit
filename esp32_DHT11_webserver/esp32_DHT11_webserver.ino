@@ -1,12 +1,12 @@
 #include <WiFi.h>
 #include <WebServer.h>
-#include "DHT.h"
+#include <DHT.h>
 
 
 #define DHTTYPE DHT11   // DHT 11 
 
-const char* ssid = "EagleNet";  
-const char* password = "VAA39x4H";  
+const char* ssid = "laggin deez";  
+const char* password = "";  
 
 WebServer server(80);
 
